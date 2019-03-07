@@ -22,7 +22,7 @@ Note: The actual commands can be found in the `test_integration` job in the Circ
 We start with the unit tests that we already have in `test/test.js` of the main directory. Then, we transform the test file into a few files that will be used by the bundlers:
 * a ES6 modules version that replaces the harden local import in the test file (`import harden from '../src/index';`) with an import of the package (`@agoric/harden`)
 * a CommonJS version that does the same replacement (this will be used by browserify, which cannot process ES6 modules)
-* a CommonJS version that removes all harden imports (this will be used by unpkg)
+* a CommonJS version that removes all harden imports in favor of a global 'harden' object that will be put in place by a previous `<script>` tag during the tests (this will be used by the unpkg/umd tests).
 
 ### Webpack
 
