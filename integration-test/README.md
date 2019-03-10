@@ -49,3 +49,12 @@ Unpkg isn't really a bundler at all, but is a CDN. We create a browser-friendly 
 Note: In order to test the local version, not the version published to npm, we use the dist files that we have locally that would be served by unpkg after we publish.
 
 TODO: Test `harden.esm.js` as imported in a browser. Currently, there are cross-origin errors, so we would probably have to run a server. 
+
+
+## Debugging and running locally
+
+To run locally, first run the approprate build script:
+* `./integration-test/scripts/build-pre-release-test.sh` (this tests the bundlers)
+* `./integration-test/scripts/build-post-release-test.sh` (this tests unpkg after publishing to npm)
+
+This will bundle the test suite with the latest code. To actually test it locally, you can either install `puppeteer` and change the references in `integration-test/test/utility/test-bundler.js` from `puppeteer-core` to `puppeteer` and use chromium. Or, you can test manually by just opening up the index.html files for each test in your browser (the second argument to `testBundler`). For instance, in `integration-test/test/test-post-release.js`, you can open up `'../../scaffolding/unpkg-umd/index.html'` in Chrome and view the output of the tests in the console.
