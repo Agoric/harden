@@ -26,7 +26,7 @@ We start with the unit tests that we already have in `test/test.js` of the main 
 
 ### Webpack
 
-We take the ES6 modules version of the test that we created and bundle it with webpack (settings in `integration-test/scaffolding/webpack/webpack.config.js`)
+We take the ES6 modules version of the test that we created and bundle it with webpack (settings in `integration-test/pre-release-browser-tests/webpack/webpack.config.js`)
 
 ### Browserify
 
@@ -57,4 +57,4 @@ To run locally, first run the approprate build script:
 * `./integration-test/scripts/build-pre-release-test.sh` (this tests the bundlers)
 * `./integration-test/scripts/build-post-release-test.sh` (this tests unpkg after publishing to npm)
 
-This will bundle the test suite with the latest code. To actually test it locally, you can either install `puppeteer` and change the references in `integration-test/test/utility/test-bundler.js` from `puppeteer-core` to `puppeteer` and use chromium. Or, you can test manually by just opening up the index.html files for each test in your browser (the second argument to `testBundler`). For instance, in `integration-test/test/test-post-release.js`, you can open up `'../../scaffolding/unpkg-umd/index.html'` in Chrome and view the output of the tests in the console.
+This will bundle the test suite with the latest code. To actually test it locally, you can either install `puppeteer` and change the references in `integration-test/test/utility/test-bundler.js` from `puppeteer-core` to `puppeteer` and use chromium. Or, you can test manually by just opening up the index.html files for each test in your browser (the second argument to `testBundler`). For instance, in `integration-test/test/test-post-release.js`, you can open up `'../../post-release-browser-tests/unpkg-umd/index.html'` in Chrome and view the output of the tests in the console.

@@ -1,3 +1,4 @@
+#! /bin/sh -e
 npm run-script build
 cd integration-test 
 npm install $( npm pack .. )
