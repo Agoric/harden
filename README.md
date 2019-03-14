@@ -95,6 +95,8 @@ This changes the `Map` which our counter API relies upon: when it tries to updat
 
 As a side-effect, it breaks `Map` for everyone in that Realm (which generally means everyone in the same process). This is pretty drastic, but you can imagine a situation where the target object was the only user of some shared utility, and the attacker could selectively modify the utility to affect some users without affecting others. For example, `Map.prototype.set` might look at the name and only ignore updates for specific ones.
 
+For more information on prototype poisoning/pollution, see [this talk and paper](https://github.com/HoLyVieR/prototype-pollution-nsec18).
+
 ## The Solution: Recursive freezing with `harden()`
 
 `harden()` is a function which performs recursive freezing of an API surface, preventing all of the attacks described above:
