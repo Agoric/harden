@@ -1,11 +1,13 @@
 git clone https://github.com/AgoricBot/harden.git
 cd harden
 git remote add upstream https://github.com/Agoric/harden.git
+git remote set-url origin https://AgoricBot:$GITHUB_TOKEN@github.com/AgoricBot/harden.git
 git fetch upstream
 git checkout master
 git rebase upstream/master
 git config user.email "kate+agoricbot@agoric.com"
 git config user.name "AgoricBot"
+git config --global hub.protocol https
 hub push origin master
 
 if git ls-remote --heads --exit-code origin npm-audit-fix ; then
@@ -34,7 +36,6 @@ cd ..
 if [ "$files_changed" = true ] ; then
   git add . 
   git commit -m "results of running npm audit fix"
-  git remote set-url origin https://AgoricBot:$GITHUB_TOKEN@github.com/AgoricBot/harden.git
   git push origin npm-audit-fix
   hub pull-request --no-edit --base Agoric/harden:master
 fi
