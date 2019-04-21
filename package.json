@@ -5,6 +5,7 @@
   "main": "dist/harden.cjs.js",
   "module": "dist/harden.esm.js",
   "browser": "dist/harden.umd.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "node -r esm test/test.js",
     "build": "rollup -c",
