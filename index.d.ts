@@ -13,12 +13,6 @@ declare namespace harden {
     T extends Function ? HardenedFunction<T> :
     T extends Primitive ? Readonly<T> :
     T extends Array<infer U> ? HardenedArray<U> :
-    // The following are always hardened, as described in lib.jessie.d.ts
-    T extends Map<infer K, infer V> ? Map<K, V> :
-    T extends WeakMap<infer WK, infer WV> ? WeakMap<WK, WV> :
-    T extends Set<infer M> ? Set<M> :
-    T extends WeakSet<infer WM> ? WeakSet<WM> :
-    T extends Promise<infer R> ? Promise<R> :
     // All others are manually hardened.
       HardenedObject<T>;
 
