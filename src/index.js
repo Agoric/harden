@@ -1,3 +1,4 @@
+/* global harden SES */
 // Adapted from SES/Caja - Copyright (C) 2011 Google Inc.
 // Copyright (C) 2018 Agoric
 
@@ -16,11 +17,27 @@
 import makeHardener from '@agoric/make-hardener';
 import buildTable from './buildTable';
 
-// this use of 'global' is why Harden is a "resource module", whereas
-// MakeHardener is "pure".
-const initialRoots = buildTable((1, eval)('this')); // eslint-disable-line no-eval
-// console.log('initialRoots are', initialRoots);
+// Try to use SES's own harden if available.
+let h = typeof harden !== 'undefined' && harden;
+if (!h) {
+  // Legacy SES compatibility.
+  h = typeof SES !== 'undefined' && SES.harden;
+}
 
-const harden = makeHardener(initialRoots);
+if (!h) {
+  console.warn(`SecurityWarning: '@agoric/harden' is ineffective without SES`);
 
-export default harden;
+  // Hunt down our globals.
+  // eslint-disable-next-line no-new-func
+  const g = Function('return this')();
+
+  // this use of 'global' is why Harden is a "resource module", whereas
+  // MakeHardener is "pure".
+  const initialRoots = buildTable(g);
+  // console.log('initialRoots are', initialRoots);
+
+  h = makeHardener(initialRoots);
+}
+
+const constHarden = h;
+export default constHarden;
